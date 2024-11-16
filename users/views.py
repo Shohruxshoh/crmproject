@@ -6,7 +6,7 @@ from rest_framework import status, generics
 
 from .models import User, Region, District
 from .serializers import PhoneTokenObtainSerializer, RegisterSerializer, RegionSerializer, DistrictSerializer, \
-    PhoneTokenObtainAdminSerializer, OperatorSerializer
+    PhoneTokenObtainAdminSerializer, OperatorSerializer, UserSerializer
 
 
 class RegisterView(generics.CreateAPIView):
@@ -58,6 +58,13 @@ class PhoneTokenObtainAminView(APIView):
         if serializer.is_valid():
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+class OperatorListView(generics.ListCreateAPIView):
+    queryset = User.objects.filter(is_active=True)
+    serializer_class = UserSerializer
 
 
 class RegionCreateAndListView(generics.ListCreateAPIView):

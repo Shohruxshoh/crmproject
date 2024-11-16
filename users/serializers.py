@@ -50,7 +50,6 @@ class OperatorSerializer(serializers.ModelSerializer):
     #
     #     return attrs
 
-
     def update(self, instance, validated_data):
         phone1 = validated_data.get('phone')
         # Update only the fields that are provided in the request.
@@ -111,3 +110,10 @@ class DistrictSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
         fields = ['title', 'region']
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'phone', 'role', 'telegram', 'percentage', 'region', 'district', 'created_at',
+                  'updated_at']

@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import PhoneTokenObtainView, RegisterView, PhoneTokenObtainAminView, RegionCreateAndListView, \
-    DistrictCreateAndListView, OperatorUpdateView
+    DistrictCreateAndListView, OperatorUpdateView, OperatorListView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
+    path('operators/', OperatorListView.as_view()),
     path('register-operator/', RegisterView.as_view()),
     path('operator-update/<int:pk>', OperatorUpdateView.as_view()),
     path('login-admin/', PhoneTokenObtainAminView.as_view(), name='login-admin'),
