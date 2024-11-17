@@ -1,5 +1,6 @@
 from drf_spectacular.utils import extend_schema, OpenApiResponse
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.utils.representation import serializer_repr
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
@@ -62,7 +63,7 @@ class PhoneTokenObtainAminView(APIView):
 
 
 
-class OperatorListView(generics.ListCreateAPIView):
+class OperatorListView(generics.ListAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
 
@@ -75,3 +76,11 @@ class RegionCreateAndListView(generics.ListCreateAPIView):
 class DistrictCreateAndListView(generics.ListCreateAPIView):
     queryset = District.objects.filter(is_active=True)
     serializer_class = DistrictSerializer
+
+
+class UserMeView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)

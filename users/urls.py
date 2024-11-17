@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import PhoneTokenObtainView, RegisterView, PhoneTokenObtainAminView, RegionCreateAndListView, \
-    DistrictCreateAndListView, OperatorUpdateView, OperatorListView
+    DistrictCreateAndListView, OperatorUpdateView, OperatorListView, UserMeView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -13,5 +13,8 @@ urlpatterns = [
 
     path('region/', RegionCreateAndListView.as_view()),
     path('district/', DistrictCreateAndListView.as_view()),
+
+
+    path('user-me/', UserMeView.as_view()),
 
 ]
